@@ -22,6 +22,7 @@ class BloomFilter:
             raise ValueError("Invalid hash function (%s). Options: %s" % (hash_func, ', '.join(sorted(HASH_FUNCTIONS.keys()))))
         self.pybf_version = PYBF_VERSION
         self.k = k
+        self.m = m
         self.bits = BitArray(m)
         self.hash_func_key = hash_func
         self.hash_func = HASH_FUNCTIONS[hash_func]
@@ -44,4 +45,5 @@ class BloomFilter:
             x (object): The element to insert
         '''
         self.num_inserts += 1
-        pass # TODO
+        for i in range(self.k):
+            self.bits.set_one(self.hash_func(x, i) % self.m)

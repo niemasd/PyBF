@@ -11,4 +11,4 @@ if __name__ == "__main__":
     with open_file(argv[3]) as f:
         for s in f.read().strip().split():
             bf.insert(s.strip())
-    print(len(bf.bits)) # TODO DELETE
+    print(len(bf)) # TODO DELETE

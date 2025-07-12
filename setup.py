@@ -13,7 +13,7 @@ from os import path
 
 # load version from Python code
 with open('pybf/common.py') as f:
-    PYBF_VERSION = [l for l in f if l.startswith('PYBF_VERSION = '].split('=')[-1].strip()
+    PYBF_VERSION = [l for l in f if l.startswith('PYBF_VERSION = ')][0].split('=')[-1].strip()
 
 here = path.abspath(path.dirname(__file__))
 setup(

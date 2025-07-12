@@ -25,6 +25,16 @@ class BloomFilter:
         self.bits = BitArray(m)
         self.hash_func_key = hash_func
         self.hash_func = HASH_FUNCTIONS[hash_func]
+        self.num_inserts = 0
+
+    def __len__(self):
+        '''
+        Return the total number of insert operations into this Bloom Filter (duplicate inserts will be double-counted)
+
+        Returns:
+            int: The total number of insert operations into this Bloom Filter
+        '''
+        return self.num_inserts
 
     def insert(self, x):
         '''
@@ -33,4 +43,5 @@ class BloomFilter:
         Args:
             x (object): The element to insert
         '''
+        self.num_inserts += 1
         pass # TODO

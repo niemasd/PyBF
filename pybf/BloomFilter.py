@@ -6,6 +6,9 @@ from pybf.Hash import HASH_FUNCTIONS
 # standard imports
 from pickle import dump as pdump, load as pload
 
+# useful constants
+DUMP_KEYS = ['pybf_version', 'k', 'bits', 'hash_func_key', 'num_inserts']
+
 class BloomFilter:
     '''Bloom Filter class'''
     def __init__(self, k, m, hash_func='mmh3'):
@@ -39,6 +42,12 @@ class BloomFilter:
             int: The total number of insert operations into this Bloom Filter
         '''
         return self.num_inserts
+
+    def __getstate__(self):
+        state = dict()
+        for k in DUMP_KEYS:
+            state[k] = getattr(self, k)
+        return state
 
     def insert(self, x):
         '''

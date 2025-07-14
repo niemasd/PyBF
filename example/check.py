@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print("USAGE: %s <input_bloomfilter_pkl> <input_txt>" % argv[0]); exit(1)
     print("Loading Bloom Filter from: %s" % argv[1])
     bf = BloomFilter.load(argv[1])
-    print("Loaded Bloom Filter with k = %d hash functions and m = %d bits" % (bf.k, bf.m))
+    print("Loaded Bloom Filter (NiemaBF v%s) with k = %d hash functions and m = %d bits" % (bf.niemabf_version, bf.k, bf.m))
     print("Checking all whitespace-delimited strings from: %s" % argv[2])
     count = 0
     with open_file(argv[2]) as f:

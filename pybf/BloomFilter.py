@@ -1,7 +1,10 @@
 # PyBF imports
 from pybf.BitArray import BitArray
-from pybf.common import PYBF_VERSION
+from pybf.common import open_file, PYBF_VERSION
 from pybf.Hash import HASH_FUNCTIONS
+
+# standard imports
+from pickle import dump as pdump, load as pload
 
 class BloomFilter:
     '''Bloom Filter class'''
@@ -47,3 +50,13 @@ class BloomFilter:
         self.num_inserts += 1
         for i in range(self.k):
             self.bits.set_one(self.hash_func(x, i) % self.m)
+
+    def dump(self, fn):
+        '''
+        Dump this Bloom Filter into a given file
+
+        Args:
+            fn (object): The file into which this Bloom Filter should be dumped
+        '''
+        with open_file(fn, mode='wb') as f:
+            pdump(self, f)

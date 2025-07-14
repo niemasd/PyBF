@@ -60,12 +60,43 @@ class BloomFilter:
         for i in range(self.k):
             self.bits.set_one(self.hash_func(x, i) % self.m)
 
+    def find(self, x):
+        '''
+        Find an element in this Bloom Filter
+
+        Args:
+            x (object): The element to find
+
+        Returns:
+            bool: `False` if `x` definitely does not exist in this Bloom Filter, otherwise `True`
+        '''
+        for i in range(self.k):
+            if self.bits[self.hash_func(x, i) % self.m] == 0:
+                return False
+        return True
+
     def dump(self, fn):
         '''
         Dump this Bloom Filter into a given file
 
         Args:
-            fn (object): The file into which this Bloom Filter should be dumped
+            fn (str): The name of the file into which this Bloom Filter should be dumped
         '''
         with open_file(fn, mode='wb') as f:
             pdump(self, f)
+
+    def load(fn):
+        '''
+        Load a Bloom Filter from a given file
+
+        Args:
+            fn (str): The name of the file from which to load a Bloom Filter
+
+        Returns:
+            BloomFilter: The loaded Bloom Filter
+        '''
+        with open_file(fn, mode='rb') as f:
+            bf = pload(f)
+        bf.m = len(bf.bits)
+        bf.hash_func = HASH_FUNCTIONS[bf.hash_func_key]
+        return bf

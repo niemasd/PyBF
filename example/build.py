@@ -14,5 +14,6 @@ if __name__ == "__main__":
     with open_file(argv[3]) as f:
         for s in f.read().strip().split():
             bf.insert(s.strip())
+    print("Successfully inserted %d strings" % len(bf))
     print("Dumping Bloom Filter to: %s" % argv[4])
     bf.dump(argv[4])

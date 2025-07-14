@@ -15,4 +15,4 @@ pip install --user niemabf
 ```
 
 ## Usage
-Example scripts are provided in the [`example`](example) folder. Full documentation can be found at: [https://niema.net/TreeSwift](https://niema.net/NiemaBF)
+Example scripts are provided in the [`example`](example) folder. Full documentation can be found at: [https://niema.net/NiemaBF](https://niema.net/NiemaBF)

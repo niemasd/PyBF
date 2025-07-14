@@ -2,7 +2,7 @@
 '''
 Build a Bloom Filter from a file containing whitespace-delimited strings
 '''
-from pybf import BloomFilter, open_file
+from niemabf import BloomFilter, open_file
 from sys import argv
 if __name__ == "__main__":
     if len(argv) != 5:

@@ -1,9 +1,9 @@
 # non-standard imports
 from mmh3 import hash as mmh3_hash
 
-def mmh3_hash_pybf(key, seed):
+def mmh3_hash_niemabf(key, seed):
     '''
-    PyBF wrapper for mmh3.hash, which returns a signed int by default (we want unsigned)
+    NiemaBF wrapper for mmh3.hash, which returns a signed int by default (we want unsigned)
 
     Args:
         key (str): The input string to hash
@@ -16,5 +16,5 @@ def mmh3_hash_pybf(key, seed):
 
 # hash functions
 HASH_FUNCTIONS = {
-    'mmh3': mmh3_hash_pybf, # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
+    'mmh3': mmh3_hash_niemabf, # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
 }

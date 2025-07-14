@@ -1,13 +1,13 @@
-# PyBF imports
-from pybf.BitArray import BitArray
-from pybf.common import open_file, PYBF_VERSION
-from pybf.Hash import HASH_FUNCTIONS
+# NiemaBF imports
+from niemabf.BitArray import BitArray
+from niemabf.common import open_file, NIEMABF_VERSION
+from niemabf.Hash import HASH_FUNCTIONS
 
 # standard imports
 from pickle import dump as pdump, load as pload
 
 # useful constants
-DUMP_KEYS = ['pybf_version', 'k', 'bits', 'hash_func_key', 'num_inserts']
+DUMP_KEYS = ['niemabf_version', 'k', 'bits', 'hash_func_key', 'num_inserts']
 
 class BloomFilter:
     '''Bloom Filter class'''
@@ -26,7 +26,7 @@ class BloomFilter:
             raise ValueError("`k` must be positive, but received: %s" % k)
         if hash_func not in HASH_FUNCTIONS:
             raise ValueError("Invalid hash function (%s). Options: %s" % (hash_func, ', '.join(sorted(HASH_FUNCTIONS.keys()))))
-        self.pybf_version = PYBF_VERSION
+        self.niemabf_version = NIEMABF_VERSION
         self.k = k
         self.m = m
         self.bits = BitArray(m)

@@ -12,17 +12,17 @@ from codecs import open
 from os import path
 
 # load version from Python code
-with open('pybf/common.py') as f:
-    PYBF_VERSION = [l for l in f if l.startswith('PYBF_VERSION = ')][0].split('=')[-1].replace("'",'').strip()
+with open('niemabf/common.py') as f:
+    NIEMABF_VERSION = [l for l in f if l.startswith('NIEMABF_VERSION = ')][0].split('=')[-1].replace("'",'').strip()
 
 here = path.abspath(path.dirname(__file__))
 setup(
-    name='pybf',  # Required
-    version=PYBF_VERSION,  # Required
-    description='PyBF: Python Bloom Filter implementation',  # Required
-    long_description='PyBF: Python Bloom Filter implementation',  # Optional
+    name='niemabf',  # Required
+    version=NIEMABF_VERSION,  # Required
+    description="NiemaBF: Niema's Python Bloom Filter implementation",  # Required
+    long_description="NiemaBF: Niema's Python Bloom Filter implementation",  # Optional
     long_description_content_type='text/plain',  # Optional (see note above)
-    url='https://github.com/niemasd/PyBF',  # Optional
+    url='https://github.com/niemasd/NiemaBF',  # Optional
     author='Niema Moshiri',  # Optional
     author_email='niemamoshiri@gmail.com',  # Optional
     classifiers=[  # Optional
@@ -54,7 +54,7 @@ setup(
         'dev': ['check-manifest'],
     },
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/niemasd/PyBF/issues',
-        'Source': 'https://github.com/niemasd/PyBF',
+        'Bug Reports': 'https://github.com/niemasd/NiemaBF/issues',
+        'Source': 'https://github.com/niemasd/NiemaBF',
     },
 )

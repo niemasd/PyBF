@@ -44,6 +44,12 @@ class BloomFilter:
         return self.num_inserts
 
     def __getstate__(self):
+        '''
+        Get the state (core instance variables) of this Bloom Filter
+
+        Returns:
+            dict: The state (core instance variables) of this Bloom Filter
+        '''
         state = dict()
         for k in DUMP_KEYS:
             state[k] = getattr(self, k)

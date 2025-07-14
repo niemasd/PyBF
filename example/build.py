@@ -6,7 +6,7 @@ from pybf import BloomFilter, open_file
 from sys import argv
 if __name__ == "__main__":
     if len(argv) != 5:
-        print("USAGE: %s <k> <m> <input_txt> <output_bf>" % argv[0]); exit(1)
+        print("USAGE: %s <k> <m> <input_txt> <output_bloomfilter_pkl>" % argv[0]); exit(1)
     k = int(argv[1]); m = int(argv[2])
     print("Creating empty Bloom Filter with k = %d hash functions and m = %d bits..." % (k, m))
     bf = BloomFilter(k, m)

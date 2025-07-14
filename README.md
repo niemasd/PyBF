@@ -1,2 +1,2 @@
-# PyBF
-Python Bloom Filter implementation
+# NiemaBF
+Niema's Python Bloom Filter implementation

@@ -61,21 +61,3 @@ class BitArray:
         '''
         arr_ind = i // 8; offset = 7 - (i % 8)
         self.arr[arr_ind] = (self.arr[arr_ind] & (~(UINT8_1 << offset))) | ((v != 0) << offset)
-
-    def set_one(self, i):
-        '''
-        Set the `i`-th bit to 1
-
-        Args:
-            i (int): The index of the bit to set to 1
-        '''
-        self[i] = 1
-
-    def set_zero(self, i):
-        '''
-        Set the `i`-th bit to 0
-
-        Args:
-            i (int): The index of the bit to set to 0
-        '''
-        self[i] = 0

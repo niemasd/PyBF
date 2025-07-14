@@ -64,7 +64,7 @@ class BloomFilter:
         '''
         self.num_inserts += 1
         for i in range(self.k):
-            self.bits.set_one(self.hash_func(x, i) % self.m)
+            self.bits[self.hash_func(x, i) % self.m] = 1
 
     def find(self, x):
         '''

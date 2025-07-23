@@ -1,3 +1,8 @@
+#! /usr/bin/env python3
+'''
+Things related to Bloom Filter
+'''
+
 # NiemaBF imports
 from niemabf.BitArray import BitArray
 from niemabf.common import open_file, NIEMABF_VERSION

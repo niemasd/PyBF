@@ -1,9 +1,18 @@
-# non-standard imports
-from mmh3 import hash as mmh3_hash
+#! /usr/bin/env python3
+'''
+Things related to hash functions
+'''
 
-def mmh3_hash_niemabf(key, seed):
+# standard imports
+from hashlib import sha512
+
+# non-standard imports
+from mmh3 import hash as mmh3_hash # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
+
+# === BloomFilter Stuff ===
+def mmh3_hash_bloomfilter(key, seed):
     '''
-    NiemaBF wrapper for `mmh3.hash`, which returns a signed `int` by default (we want unsigned)
+    Wrapper for `mmh3.hash`, which returns a signed `int` by default (we want unsigned)
 
     Args:
         key (str): The input string to hash
@@ -14,9 +23,9 @@ def mmh3_hash_niemabf(key, seed):
     '''
     return mmh3_hash(key=key, seed=seed, signed=False)
 
-def mmh3_hash_niemabf_int(key, seed):
+def mmh3_hash_bloomfilter_int(key, seed):
     '''
-    NiemaBF wrapper to compute mmh3.hash on an `int` by converting it to `str` first
+    Wrapper to compute `mmh3.hash` on an `int` by converting it to `str` first
 
     Args:
         key (int): The input `int` to hash
@@ -25,11 +34,11 @@ def mmh3_hash_niemabf_int(key, seed):
     Returns:
         int: The hash value
     '''
-    return mmh3_hash_niemabf(str(key), seed)
+    return mmh3_hash_bloomfilter(str(key), seed)
 
-def mmh3_hash_niemabf_iterable(key, seed):
+def mmh3_hash_bloomfilter_iterable(key, seed):
     '''
-    NiemaBF wrapper to compute mmh3.hash on iterable data
+    Wrapper to compute `mmh3.hash` on iterable data
 
     Args:
         key (iterable): The input iterable data to hash
@@ -38,19 +47,115 @@ def mmh3_hash_niemabf_iterable(key, seed):
     Returns:
         int: The hash value
     '''
-    return mmh3_hash_niemabf(''.join(str(HASH_FUNCTIONS_BLOOMFILTER[DEFAULT_HASH_FUNCTION_BLOOMFILTER[type(x)]](x,seed)) for x in key), seed)
+    return mmh3_hash_bloomfilter(''.join(str(HASH_FUNCTIONS_BLOOMFILTER[DEFAULT_HASH_FUNCTION_BLOOMFILTER[type(x)]](x,seed)) for x in key), seed)
 
 # BloomFilter hash functions
 HASH_FUNCTIONS_BLOOMFILTER = {
-    'mmh3': mmh3_hash_niemabf,                   # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
-    'mmh3_int': mmh3_hash_niemabf_int,           # convert int to bytes, and then use mmh3
-    'mmh3_iterable': mmh3_hash_niemabf_iterable, # use mmh3 on each element in an iterable
+    'mmh3':          mmh3_hash_bloomfilter,
+    'mmh3_int':      mmh3_hash_bloomfilter_int,
+    'mmh3_iterable': mmh3_hash_bloomfilter_iterable,
 }
 
-# default Bloom Filter hash function for each type
+# default BloomFilter hash function for each type
 DEFAULT_HASH_FUNCTION_BLOOMFILTER = {
     int:  'mmh3_int',
     list: 'mmh3_iterable',
     set:  'mmh3_iterable',
     str:  'mmh3',
+}
+
+# === HashSet Stuff ===
+def mmh3_hash_hashset(key):
+    '''
+    Wrapper for `mmh3.hash`, which returns a signed `int` by default (we want unsigned)
+
+    Args:
+        key (str): The input string to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return mmh3_hash(key=key, seed=0, signed=False)
+
+def mmh3_hash_hashset_int(key):
+    '''
+    Wrapper to compute `mmh3.hash` on an `int` by converting it to `str` first
+
+    Args:
+        key (int): The input `int` to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return mmh3_hash_hashset(str(key))
+
+def mmh3_hash_hashset_iterable(key):
+    '''
+    Wrapper to compute `mmh3.hash` on iterable data
+
+    Args:
+        key (iterable): The input iterable data to hash
+        seed (int): The seed value of he hash function
+
+    Returns:
+        int: The hash value
+    '''
+    return mmh3_hash_hashset(''.join(str(HASH_FUNCTIONS_HASHSET[DEFAULT_HASH_FUNCTION_HASHSET[type(x)]](x)) for x in key))
+
+def sha512_hashset_str(key):
+    '''
+    Wrapper to computer `hashlib.sha512` on a `str`
+
+    Args:
+        key (str): The input string to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return sha512(key.encode()).digest()
+
+def sha512_hashset_int(key):
+    '''
+    Wrapper to compute `hashlib.sha512` on an `int` by converting it to `str` first
+
+    Args:
+        key (int): The input `int` to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return sha512_hashset_str(str(key))
+
+def sha512_hashset_iterable(key):
+    '''
+    Wrapper to compute `hashlib.sha512` on iterable data
+
+    Args:
+        key (iterable): The input iterable data to hash
+        seed (int): The seed value of he hash function
+
+    Returns:
+        int: The hash value
+    '''
+    tmp = sha512()
+    for x in key:
+        tmp.update(DEFAULT_HASH_FUNCTION_HASHSET[type(x)](x))
+    return tmp.digest()
+
+# HashSet hash functions
+HASH_FUNCTIONS_HASHSET = {
+    'mmh3':            mmh3_hash_hashset,
+    'mmh3_int':        mmh3_hash_hashset_int,
+    'mmh3_iterable':   mmh3_hash_hashset_iterable,
+    'sha512_int':      sha512_hashset_int,
+    'sha512_iterable': sha512_hashset_iterable,
+    'sha512_str':      sha512_hashset_str,
+}
+
+# default HashSet hash function for each type (all need to return `bytes`)
+DEFAULT_HASH_FUNCTION_HASHSET = {
+    int:  'sha512_int',
+    list: 'sha512_iterable',
+    set:  'sha512_iterable',
+    str:  'sha512_str',
 }

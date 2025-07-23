@@ -1,3 +1,8 @@
+#! /usr/bin/env python3
+'''
+Common things in NiemaBF
+'''
+
 # standard imports
 from gzip import open as gopen
 

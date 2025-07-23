@@ -1,3 +1,8 @@
+#! /usr/bin/env python3
+'''
+Things related to Bit Array
+'''
+
 # non-standard imports
 from numpy import uint8, zeros
 

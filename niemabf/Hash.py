@@ -38,17 +38,17 @@ def mmh3_hash_niemabf_iterable(key, seed):
     Returns:
         int: The hash value
     '''
-    return mmh3_hash_niemabf(''.join(str(HASH_FUNCTIONS[DEFAULT_HASH_FUNCTION[type(x)]](x,seed)) for x in key), seed)
+    return mmh3_hash_niemabf(''.join(str(HASH_FUNCTIONS_BLOOMFILTER[DEFAULT_HASH_FUNCTION_BLOOMFILTER[type(x)]](x,seed)) for x in key), seed)
 
-# hash functions
-HASH_FUNCTIONS = {
+# BloomFilter hash functions
+HASH_FUNCTIONS_BLOOMFILTER = {
     'mmh3': mmh3_hash_niemabf,                   # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
     'mmh3_int': mmh3_hash_niemabf_int,           # convert int to bytes, and then use mmh3
     'mmh3_iterable': mmh3_hash_niemabf_iterable, # use mmh3 on each element in an iterable
 }
 
-# default hash function for each type
-DEFAULT_HASH_FUNCTION = {
+# default Bloom Filter hash function for each type
+DEFAULT_HASH_FUNCTION_BLOOMFILTER = {
     int:  'mmh3_int',
     list: 'mmh3_iterable',
     set:  'mmh3_iterable',

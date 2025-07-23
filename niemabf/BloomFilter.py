@@ -1,7 +1,7 @@
 # NiemaBF imports
 from niemabf.BitArray import BitArray
 from niemabf.common import open_file, NIEMABF_VERSION
-from niemabf.Hash import HASH_FUNCTIONS
+from niemabf.Hash import HASH_FUNCTIONS_BLOOMFILTER
 
 # standard imports
 from pickle import dump as pdump, load as pload
@@ -24,14 +24,14 @@ class BloomFilter:
             raise TypeError("`k` must be type `int`, but received: `%s`" % type(k))
         if k < 1:
             raise ValueError("`k` must be positive, but received: %s" % k)
-        if hash_func not in HASH_FUNCTIONS:
-            raise ValueError("Invalid hash function (%s). Options: %s" % (hash_func, ', '.join(sorted(HASH_FUNCTIONS.keys()))))
+        if hash_func not in HASH_FUNCTIONS_BLOOMFILTER:
+            raise ValueError("Invalid hash function (%s). Options: %s" % (hash_func, ', '.join(sorted(HASH_FUNCTIONS_BLOOMFILTER.keys()))))
         self.niemabf_version = NIEMABF_VERSION
         self.k = k
         self.m = m
         self.bits = BitArray(m)
         self.hash_func_key = hash_func
-        self.hash_func = HASH_FUNCTIONS[hash_func]
+        self.hash_func = HASH_FUNCTIONS_BLOOMFILTER[hash_func]
         self.num_inserts = 0
 
     def __len__(self):
@@ -104,5 +104,5 @@ class BloomFilter:
         with open_file(fn, mode='rb') as f:
             bf = pload(f)
         bf.m = len(bf.bits)
-        bf.hash_func = HASH_FUNCTIONS[bf.hash_func_key]
+        bf.hash_func = HASH_FUNCTIONS_BLOOMFILTER[bf.hash_func_key]
         return bf

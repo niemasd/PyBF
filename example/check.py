@@ -14,6 +14,6 @@ if __name__ == "__main__":
     count = 0
     with open_file(argv[2]) as f:
         for s in f.read().strip().split():
-            if bf.find(s.strip()):
+            if s.strip() in bf:
                 count += 1
     print("Found %d word(s)" % count)

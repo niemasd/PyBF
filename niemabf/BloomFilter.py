@@ -81,6 +81,18 @@ class BloomFilter:
                 return False
         return True
 
+    def __contains__(self, x):
+        '''
+        Overload the `in` operator (just call `find`)
+
+        Args:
+            x (object): The element to find
+
+        Returns:
+            bool: `False` if `x` definitely does not exist in this Bloom Filter, otherwise `True`
+        '''
+        return self.find(x)
+
     def dump(self, fn):
         '''
         Dump this Bloom Filter into a given file

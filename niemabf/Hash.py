@@ -4,7 +4,7 @@ Things related to hash functions
 '''
 
 # standard imports
-from hashlib import sha512
+from hashlib import sha256, sha512
 
 # non-standard imports
 from mmh3 import hash as mmh3_hash # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
@@ -102,6 +102,46 @@ def mmh3_hash_hashset_iterable(key):
     '''
     return mmh3_hash_hashset(''.join(str(HASH_FUNCTIONS_HASHSET[DEFAULT_HASH_FUNCTION_HASHSET[type(x)]](x)) for x in key))
 
+def sha256_hashset_str(key):
+    '''
+    Wrapper to computer `hashlib.sha256` on a `str`
+
+    Args:
+        key (str): The input string to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return sha256(key.encode()).digest()
+
+def sha256_hashset_int(key):
+    '''
+    Wrapper to compute `hashlib.sha256` on an `int` by converting it to `str` first
+
+    Args:
+        key (int): The input `int` to hash
+
+    Returns:
+        int: The hash value
+    '''
+    return sha256_hashset_str(str(key))
+
+def sha256_hashset_iterable(key):
+    '''
+    Wrapper to compute `hashlib.sha256` on iterable data
+
+    Args:
+        key (iterable): The input iterable data to hash
+        seed (int): The seed value of he hash function
+
+    Returns:
+        int: The hash value
+    '''
+    tmp = sha256()
+    for x in key:
+        tmp.update(DEFAULT_HASH_FUNCTION_HASHSET[type(x)](x))
+    return tmp.digest()
+
 def sha512_hashset_str(key):
     '''
     Wrapper to computer `hashlib.sha512` on a `str`
@@ -147,6 +187,9 @@ HASH_FUNCTIONS_HASHSET = {
     'mmh3':            mmh3_hash_hashset,
     'mmh3_int':        mmh3_hash_hashset_int,
     'mmh3_iterable':   mmh3_hash_hashset_iterable,
+    'sha256_int':      sha256_hashset_int,
+    'sha256_iterable': sha256_hashset_iterable,
+    'sha256_str':      sha256_hashset_str,
     'sha512_int':      sha512_hashset_int,
     'sha512_iterable': sha512_hashset_iterable,
     'sha512_str':      sha512_hashset_str,

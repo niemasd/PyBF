@@ -2,7 +2,7 @@
 Niema's Python Bloom Filter implementation
 
 ## Installation
-TreeSwift can be installed using `pip`:
+NiemaBF can be installed using `pip`:
 
 ```bash
 sudo pip install niemabf

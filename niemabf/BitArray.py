@@ -6,8 +6,8 @@ Things related to Bit Array
 # non-standard imports
 try:
     from numpy import uint8, zeros
-except Exception as import_error_numpy:
-    uint8 = None; zeros = None
+except Exception as e:
+    import_error_numpy = e; uint8 = None; zeros = None
 
 # useful constants
 if uint8 is None:

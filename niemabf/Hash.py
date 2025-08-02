@@ -9,8 +9,8 @@ from hashlib import sha256, sha512
 # non-standard imports
 try:
     from mmh3 import hash as mmh3_hash # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
-except Exception as import_error_mmh3:
-    mmh3_hash = None
+except Exception as e:
+    import_error_mmh3 = e; mmh3_hash = None
 
 # === BloomFilter Stuff ===
 def mmh3_hash_bloomfilter(key, seed):

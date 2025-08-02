@@ -4,11 +4,18 @@ Things related to Bit Array
 '''
 
 # non-standard imports
-from numpy import uint8, zeros
+try:
+    from numpy import uint8, zeros
+except Exception as import_error_numpy:
+    uint8 = None; zeros = None
 
 # useful constants
-UINT8_0 = uint8(0)
-UINT8_1 = uint8(1)
+if uint8 is None:
+    UINT8_0 = 0
+    UINT8_1 = 1
+else:
+    UINT8_0 = uint8(0)
+    UINT8_1 = uint8(1)
 
 class BitArray:
     '''Bit Array class'''
@@ -24,6 +31,8 @@ class BitArray:
         if (m < 8) or ((m % 8) != 0):
             raise ValueError("`m` must be a positive multiple of 8, but received: %s" % m)
         self.m = m
+        if zeros is None:
+            raise import_error_numpy
         self.arr = zeros(self.m // 8, dtype=uint8, order='C')
 
     def __len__(self):

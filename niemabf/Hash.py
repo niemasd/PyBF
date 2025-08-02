@@ -7,7 +7,10 @@ Things related to hash functions
 from hashlib import sha256, sha512
 
 # non-standard imports
-from mmh3 import hash as mmh3_hash # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
+try:
+    from mmh3 import hash as mmh3_hash # https://mmh3.readthedocs.io/en/stable/api.html#mmh3.hash
+except Exception as import_error_mmh3:
+    mmh3_hash = None
 
 # === BloomFilter Stuff ===
 def mmh3_hash_bloomfilter(key, seed):
@@ -21,6 +24,8 @@ def mmh3_hash_bloomfilter(key, seed):
     Returns:
         int: The hash value
     '''
+    if mmh3_hash is None:
+        raise import_error_mmh3
     return mmh3_hash(key=key, seed=seed, signed=False)
 
 def mmh3_hash_bloomfilter_int(key, seed):
@@ -75,6 +80,8 @@ def mmh3_hash_hashset(key):
     Returns:
         int: The hash value
     '''
+    if mmh3_hash is None:
+        raise import_error_mmh3
     return mmh3_hash(key=key, seed=0, signed=False)
 
 def mmh3_hash_hashset_int(key):

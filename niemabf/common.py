@@ -6,11 +6,8 @@ Common things in NiemaBF
 # standard imports
 from gzip import open as gopen
 
-# non-standard imports
-from numpy import uint8
-
 # useful constants
-NIEMABF_VERSION = '1.0.5'
+NIEMABF_VERSION = '1.0.6'
 DEFAULT_BUFSIZE = 1048576 # 1 MB #8192 # 8 KB
 
 def open_file(fn, mode='rt', buffering=DEFAULT_BUFSIZE):

@@ -7,7 +7,7 @@ Common things in NiemaBF
 from gzip import open as gopen
 
 # useful constants
-NIEMABF_VERSION = '1.0.7'
+NIEMABF_VERSION = '1.0.8'
 DEFAULT_BUFSIZE = 1048576 # 1 MB #8192 # 8 KB
 
 def open_file(fn, mode='rt', buffering=DEFAULT_BUFSIZE):

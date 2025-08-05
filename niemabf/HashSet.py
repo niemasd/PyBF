@@ -59,6 +59,24 @@ class HashSet:
         '''
         self.hashes.add(self.hash_func(x))
 
+    def remove(self, x):
+        '''
+        Remove an element from this Hash Set
+
+        Args:
+            x (object): The element to remove
+        '''
+        self.hashes.remove(self.hash_func(x))
+
+    def discard(self, x):
+        '''
+        Discard an element from this Hash Set
+
+        Args:
+            x (object): The element to remove
+        '''
+        self.hashes.discard(self.hash_func(x))
+
     def find(self, x):
         '''
         Find an element in this Hash Set
